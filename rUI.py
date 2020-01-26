@@ -31,7 +31,7 @@ class rUI(Cmd):
 		while True:
 			selection = input("Enter selection[q(quit)]: ")
 
-			if selection is "q":
+			if selection == "q":
 				return False
 			
 			# Verify valid selction	
@@ -57,8 +57,20 @@ class rUI(Cmd):
 				if True:
 					print(str(self.device.readLine(), 'utf-8'))
 		except KeyboardInterrupt:
-			print("\Read terminated")
-		
+			print("Read terminated")
+
+	def do_getStatus(self, inp):
+		"Gets status of the peripheral device"
+		# Make sure we are connected to the device
+		response = self.device.requestData([1])
+		if response == b"\x01":
+			print("Peripheral is OK")
+		elif len(response) > 0:
+			print("Peripheral is in error state {state}").format(state=ord(response))
+		else:
+			print("Error: no response from device")
+
+
 # Driver 
 p = rUI()
 p.cmdloop()
