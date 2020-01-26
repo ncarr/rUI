@@ -62,17 +62,22 @@ class rUI(Cmd):
 			print("Read terminated")
 
 	def do_test(self, inp):
+		try:
+			inp = inp.split()
+			print('do_'+inp[0])
+			getattr(testCommand, 'do_'+inp[0])(self," ".join(inp[1:]))
+		except AttributeError:
+			print("Please enter a valid command")
 		
+		# eval('testCommand.do_'+inp+"("+self+","++")")
 
 	# [add, list, remove]
 	def complete_test(self, text, line, begidx, endidx):
-		testCommands = ['add', 'list', 'remove']
+		testCommands = [command[3:] for command in dir(testCommand) if len(command) > 3 and command[:3] == "do_"]
 		if text:
 			return [ command for command in testCommands if command.startswith(text) ]
 		else:
-			return commands
-
-	
+			return testCommands
 
 	def do_runScript(self, inp):
 		"Run a list of commands from a text file"

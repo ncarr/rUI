@@ -1,4 +1,4 @@
-def do_addTest(self, inp):
+def do_add(self, inp):
 	"Add a test to the queue"
 	#####
 	# CREATE TEST OBJECT HERE
@@ -9,7 +9,7 @@ def do_addTest(self, inp):
 	self.testQueue.append(testObject)
 	print("Added", testObject, "to queue.")
 
-def do_listTestQueue(self, inp):
+def do_list(self, inp):
 	"List the currently queued tests"
 
 	if not self.testQueue:
@@ -18,7 +18,7 @@ def do_listTestQueue(self, inp):
 	for i, testObject in enumerate(self.testQueue):
 		print("["+str(i)+"] "+testObject)
 
-def do_removeTest(self, inp):
+def do_remove(self, inp):
 	"""Remove a test
 		-- input is test number from `listTests`
 		-- use `remove -f <testNumber> to skip confirmation"""
@@ -29,7 +29,7 @@ def do_removeTest(self, inp):
 	try:
 		if inp[0] != '-f':
 			toRemoveIndex = int(inp[0])
-			ans = input("Are you sure you would like to remove "+str(self.testQueue[toRemoveIndex])+" from the testQueue? Y/n")
+			ans = input("Are you sure you would like to remove "+str(self.testQueue[toRemoveIndex])+" from the testQueue (Y/n)? ")
 			if not (ans.lower() == "y" or ans.lower() == "yes" or ans.lower() == ""):
 				print("Canceling...")
 				return
