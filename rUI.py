@@ -64,13 +64,10 @@ class rUI(Cmd):
 	def do_test(self, inp):
 		try:
 			inp = inp.split()
-			print('do_'+inp[0])
 			getattr(testCommand, 'do_'+inp[0])(self," ".join(inp[1:]))
 		except AttributeError:
 			print("Please enter a valid command")
 		
-		# eval('testCommand.do_'+inp+"("+self+","++")")
-
 	# [add, list, remove]
 	def complete_test(self, text, line, begidx, endidx):
 		testCommands = [command[3:] for command in dir(testCommand) if len(command) > 3 and command[:3] == "do_"]
