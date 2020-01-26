@@ -1,12 +1,14 @@
 from cmd import Cmd
 import include.strings as strings
 from include.device import Device
+import testCommand
 
 class rUI(Cmd):
 	prompt = "rUI> "
 	intro = strings.banner	
 
 	device = Device()
+	testQueue = []
 
 	def do_exit(self, inp):
 		"Exit the rUI"
@@ -57,7 +59,25 @@ class rUI(Cmd):
 				if True:
 					print(str(self.device.readLine(), 'utf-8'))
 		except KeyboardInterrupt:
-			print("\Read terminated")
+			print("Read terminated")
+
+	def do_test(self, inp):
+		
+
+	# [add, list, remove]
+	def complete_test(self, text, line, begidx, endidx):
+		testCommands = ['add', 'list', 'remove']
+		if text:
+			return [ command for command in testCommands if command.startswith(text) ]
+		else:
+			return commands
+
+	
+
+	def do_runScript(self, inp):
+		"Run a list of commands from a text file"
+
+		print(type(inp))
 		
 # Driver 
 p = rUI()
