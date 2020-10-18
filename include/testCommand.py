@@ -5,7 +5,7 @@ sys.path.append('../')
 
 TESTPLAN_DIR = "testplans/"
 
-from rUI import require_device
+from include.requireDevice import require_device
 import tests
 
 
